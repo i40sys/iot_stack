@@ -1,0 +1,10 @@
+version: '3.3'
+# docker run -d -p 1883:1883 -p 8883:8883 --name nanomq emqx/nanomq:0.6.6
+services:
+  mqtt:
+    image: emqx/nanomq
+    container_name: nanomq
+    network_mode: host
+    volumes:
+      - './etc/nanomq.conf:/etc/nanomq.conf:ro'
+    restart: unless-stopped

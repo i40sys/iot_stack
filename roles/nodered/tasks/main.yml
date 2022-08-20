@@ -1,0 +1,134 @@
+---
+- name: Creating directories to deploy
+  file:
+    path: /docker-data/nodered/data
+    state: directory
+    owner: 1000
+    group: 1000
+  tags:
+    - nodered
+
+- name: Copying docker-compose
+  copy:
+    src: docker-compose.yml
+    dest: /docker-data/nodered/docker-compose.yml
+    mode: '0644'
+  tags:
+    - nodered
+
+- name: Run docker-compose up
+  docker_compose:
+    project_src: /docker-data/nodered
+    build: no
+    pull: yes
+  tags:
+    - nodered
+
+- name: Creating script for encoding password
+  template:
+    src: encoding_password.sh.j2
+    dest: /tmp/encoding_password.sh
+    owner: 0
+    group: 0
+    mode: '0755'
+  tags:
+    - nodered
+
+- name: Encoding the password
+  docker_container:
+    name: nodered_encoding
+    image: nodered/node-red:latest
+    entrypoint: /script.sh
+    volumes: /tmp/encoding_password.sh:/script.sh
+    detach: false
+    recreate: false
+  register: the_password
+  tags:
+    - nodered
+
+- name: Removing the container
+  docker_container:
+    name: nodered_encoding
+    state: absent
+  tags:
+    - nodered
+
+- name: Removing the script
+  file:
+    path: /tmp/encoding_password.sh
+    state: absent
+  tags:
+    - nodered
+
+- name: Password encoded
+  debug:
+    msg: "{{ the_password.container.Output | trim }}"
+  tags:
+    - nodered
+
+- name: Run docker-compose down
+  docker_compose:
+    project_src: /docker-data/nodered
+    state: absent
+  tags:
+    - nodered
+
+- name: Creating the snipped with the credentials
+  template:
+    src: settings_credentials.j2
+    dest: /tmp/settings_credentials.json
+    owner: 0
+    group: 0
+    mode: '0600'
+  tags:
+    - nodered
+
+- name: Getting crediants snippet content
+  slurp:
+    src: /tmp/settings_credentials.json
+  register: settings_credentials
+  tags:
+    - nodered
+
+- name: Add user to settings.js 
+  lineinfile:
+    path: /docker-data/nodered/data/settings.js
+    insertbefore: '.*//adminAuth: {.*'
+    line: "{{ settings_credentials.content | b64decode}}"
+    state: present
+  tags:
+    - nodered
+
+- name: Enable projects in settings
+  replace:
+    dest: /docker-data/nodered/data/settings.js
+    # captures the position of the file
+    regexp: '(?P<prj>projects: {\n)(?P<comentaris>.*\n.*)(?P<flag>enabled: false,).*$'
+    # re-insert the same staff, just changing the enable value
+    replace: '\g<prj>\g<comentaris>enabled: true,'
+    backup: yes
+  tags:
+    - nodered
+
+- name: Get editorTheme configuration
+  set_fact:
+    editor_theme: "{{ lookup('file', '../templates/settings_editor_theme.j2') }}"
+  tags:
+    - nodered
+
+- name: Customize node-red
+  lineinfile:
+    path: /docker-data/nodered/data/settings.js
+    insertbefore: '.*projects: {.*$'
+    line: "{{ editor_theme }}"
+    state: present
+  tags:
+    - nodered
+
+- name: Run docker-compose up
+  docker_compose:
+    project_src: /docker-data/nodered
+    build: no
+    pull: yes
+  tags:
+    - nodered

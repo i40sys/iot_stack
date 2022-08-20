@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  n8n:
+    image: n8nio/n8n
+    container_name: n8n
+    restart: unless-stopped
+    environment:
+      - N8N_TUNNEL_SUBDOMAIN=eso
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=80aQph334dGRHxzav
+      - GENERIC_TIMEZONE=Europe/Madrid
+      #- WEBHOOK_TUNNEL_URL=https://n8n.joor.net/
+    volumes:
+      - ./data:/home/node/.n8n
+    network_mode: host

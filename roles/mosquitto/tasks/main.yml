@@ -1,0 +1,86 @@
+---
+- name: adding Mosquitto group
+  group:
+    name: mqtt
+    gid: 1883
+    state: present
+  tags:
+    - mqtt
+
+- name: adding Mosquitto user
+  user:
+    name: mqtt
+    group: mqtt
+    create_home: no
+    shell: /usr/bin/false
+    uid: 1883
+    state: present
+  tags:
+    - mqtt
+
+- name: Creating directories to deploy
+  file:
+    path: /docker-data/mqtt/etc
+    state: directory
+    owner: mqtt
+    group: mqtt
+    mode: '0755'
+  tags:
+    - mqtt
+
+- name: Creating directories to deploy
+  file:
+    path: /docker-data/mqtt/data
+    state: directory
+    owner: mqtt
+    group: mqtt
+    mode: '0755'
+  tags:
+    - mqtt
+
+- name: Creating directories to deploy
+  file:
+    path: /docker-data/mqtt/log
+    state: directory
+    owner: mqtt
+    group: mqtt
+    mode: '0755'
+  tags:
+    - mqtt
+
+- name: Copying mosquitto.conf
+  copy:
+    src: mosquitto.conf
+    dest: /docker-data/mqtt/etc/mosquitto.conf
+    owner: mqtt
+    group: mqtt
+    mode: '0644'
+  tags:
+    - mqtt
+
+- name: Copying mqtt_users
+  copy:
+    src: mqtt_users
+    dest: /docker-data/mqtt/etc/mqtt_users
+    owner: mqtt
+    group: mqtt
+    mode: '0644'
+  tags:
+    - mqtt
+
+- name: Copying docker-compose
+  copy:
+    src: docker-compose.yml
+    dest: /docker-data/mqtt/docker-compose.yml
+    mode: '0644'
+  tags:
+    - mqtt
+
+- name: Run docker-compose up
+  docker_compose:
+    project_src: /docker-data/mqtt
+    build: no
+    pull: yes
+  tags:
+    - mqtt
+    

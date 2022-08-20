@@ -1,0 +1,35 @@
+---
+- name: Creating directories to deploy
+  file:
+    path: /docker-data/influx2/config
+    state: directory
+    owner: 1000
+    group: 1000
+  tags:
+    - influx2
+
+- name: Creating directories for data
+  file:
+    path: /data/influx2
+    state: directory
+    owner: 1000
+    group: 1000
+  tags:
+    - influx2
+
+- name: Copying docker-compose
+  copy:
+    src: docker-compose.yml
+    dest: /docker-data/influx2/docker-compose.yml
+    mode: '0644'
+  tags:
+    - influx2
+
+- name: Run docker-compose up
+  docker_compose:
+    project_src: /docker-data/influx2
+    build: no
+    pull: yes
+  tags:
+    - influx2
+

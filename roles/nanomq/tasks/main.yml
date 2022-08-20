@@ -1,0 +1,25 @@
+---
+- name: Creating directories to deploy
+  file:
+    path: /docker-data/nanomq/etc
+    state: directory
+    owner: 0
+    group: 0
+  tags:
+    - nanomq
+
+- name: Run docker-compose up
+  docker_compose:
+    project_src: /docker-data/nanomq
+    build: no
+    pull: yes
+  tags:
+    - nanomq
+
+- name: Run docker-compose up
+  docker_compose:
+    project_src: /docker-data/nanomq
+    build: no
+    pull: yes
+  tags:
+    - nanomq

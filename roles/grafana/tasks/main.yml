@@ -1,0 +1,102 @@
+---
+- name: adding Grafana group
+  group:
+    name: grafana
+    gid: 472
+    state: present
+
+- name: adding Grafana user
+  user:
+    name: grafana
+    group: grafana
+    create_home: no
+    shell: /usr/bin/false
+    uid: 472
+    state: present
+
+- name: Creating directories to deploy
+  file:
+    path: /docker-data/grafana/etc
+    state: directory
+    owner: grafana
+    group: grafana
+    mode: '0755'
+  tags:
+    - grafana
+
+- name: Creating directories to deploy
+  file:
+    path: /docker-data/grafana/scripts
+    state: directory
+    owner: grafana
+    group: grafana
+    mode: '0755'
+  tags:
+    - grafana
+
+- name: Creating directories to deploy
+  file:
+    path: /docker-data/grafana/log
+    state: directory
+    owner: grafana
+    group: grafana
+    mode: '0755'
+  tags:
+    - grafana
+
+- name: Creating a temporary container
+  docker_container:
+    name: grafana
+    image: grafana/grafana:latest
+  tags:
+    - grafana
+
+- name: Getting files from grafana container
+  shell: |
+    docker cp grafana:/etc/grafana/grafana.ini /docker-data/grafana/etc
+    docker cp grafana:/usr/share/grafana/public/dashboards .
+    docker cp grafana:/var/lib/grafana /docker-data/grafana/lib
+
+    chown grafana.grafana lib
+    exit 0
+  args:
+    chdir: /docker-data/grafana/
+  tags:
+    - grafana
+
+- name: Changing permissions
+  shell: |
+    chown -R grafana.grafana *
+    chmod 640 grafana.db
+    chmod 755 plugins png
+
+    exit 0
+  args:
+    chdir: /docker-data/grafana/lib
+  tags:
+    - grafana
+
+- name: Stopping temporal container
+  docker_container:
+    name: grafana
+    image: grafana/grafana:latest
+    state: absent
+  tags:
+    - grafana
+
+- name: Copying docker-compose
+  copy:
+    src: docker-compose.yml
+    dest: /docker-data/grafana/docker-compose.yml
+    mode: '0644'
+  tags:
+    - grafana
+
+- name: Run docker-compose up
+  docker_compose:
+    project_src: /docker-data/grafana
+    build: no
+    pull: yes
+  tags:
+    - grafana
+    

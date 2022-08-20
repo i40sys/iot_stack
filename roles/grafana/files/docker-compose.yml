@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  grafana:
+    container_name:  grafana
+    image: grafana/grafana
+    restart: unless-stopped
+    environment: 
+      - TZ="Europe/Madrid"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./etc:/etc/grafana
+      - ./lib:/var/lib/grafana
+      - ./log:/var/log/grafana
+      - ./dashboards:/usr/share/grafana/public/dashboards
+    network_mode: host
+

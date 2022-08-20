@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  mqtt:
+    container_name: mqtt
+    image: eclipse-mosquitto
+    restart: unless-stopped
+    user: mosquitto
+    volumes:
+      - './etc/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro'
+      - './etc/mqtt_users:/mosquitto/config/mqtt_users:ro'
+      - './data:/mosquitto/data'
+      - './log:/mosquitto/log'
+    network_mode: host
+
