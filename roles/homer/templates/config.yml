@@ -1,0 +1,73 @@
+---
+title: "IoT Gateway - industry40.systems"
+subtitle: "Services list"
+logo: "assets/logo_i40_systems_fondo_blanc.png"
+
+header: true
+footer: '<p><a href="https://industry40.systems" target="_blank" style="color: #f46524;">industry40.systems</a></p>'
+
+theme: default
+stylesheet:
+  - "assets/custom.css"
+colors:
+  light:
+    highlight-primary: "#ffffff"
+    highlight-secondary: "#E97D4C"
+    highlight-hover: "#aaaaaa"
+    background: "#f5f5f5"
+    card-background: "#ffffff"
+    text: "#363636"
+    text-header: "#25130B"
+    text-title: "#303030"
+    text-subtitle: "#424242"
+    card-shadow: rgba(0, 0, 0, 0.1)
+    link: "black"
+    link-hover: "#f46524"
+  dark:
+    highlight-primary: "#3367d6"
+    highlight-secondary: "#4285f4"
+    highlight-hover: "#5a95f5"
+    background: "#131313"
+    card-background: "#2b2b2b"
+    text: "#eaeaea"
+    text-header: "#ffffff"
+    text-title: "#fafafa"
+    text-subtitle: "#f5f5f5"
+    card-shadow: rgba(0, 0, 0, 0.4)
+    link-hover: "#ffdd57"
+
+services:
+  - name: "IoT services"
+    icon: "fas fa-server"
+    items:
+      - name: "Grafana"
+        icon: "fas fa-chart-area"
+        subtitle: "Dashboards"
+        tag: "iot"
+        url: "/grafana"
+        target: "_blank"
+      - name: "Node RED"
+        icon: "fas fa-bezier-curve"
+        subtitle: "Flow programming"
+        tag: "iot"
+        url: "/flows"
+        target: "_blank"
+      - name: "InfluxDB v2"
+        icon: "fas fa-database"
+        subtitle: "Time series database"
+        tag: "iot"
+        url: "http://{{ hostname_fqdn }}:8086"
+        target: "_blank"
+  - name: "NoCode"
+    icon: "fas fa-server"
+    items:
+      - name: n8n"
+        icon: "fas fa-chart-area"
+        subtitle: "NoCode/LowCode"
+        tag: "iot"
+        url: "http://{{ hostname_fqdn }}:5678"
+        target: "_blank"
+
+  - name: "_"
+    icon: "fas fa-misc"
+    items:
