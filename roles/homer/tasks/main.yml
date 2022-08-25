@@ -1,0 +1,49 @@
+---
+- name: Creating directories to deploy
+  file:
+    path: /docker-data/homer
+    state: absent
+  tags:
+    - homer
+
+- name: Creating directories to deploy
+  file:
+    path: /docker-data/homer/etc
+    state: directory
+    owner: 0
+    group: 0
+  tags:
+    - homer
+
+- name: Copying docker-compose
+  copy:
+    src: docker-compose.yml
+    dest: /docker-data/homer/docker-compose.yml
+    mode: '0644'
+  tags:
+    - homer
+
+- name: Copying assets
+  copy:
+    src: assets
+    dest: /docker-data/homer
+    directory_mode: true
+  tags:
+    - homer
+
+
+- name: Run docker-compose up
+  docker_compose:
+    project_src: /docker-data/homer
+    build: no
+    pull: yes
+  tags:
+    - homer
+
+- name: Run docker-compose up
+  docker_compose:
+    project_src: /docker-data/homer
+    build: no
+    pull: yes
+  tags:
+    - homer

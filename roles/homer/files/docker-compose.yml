@@ -1,0 +1,13 @@
+version: "2"
+services:
+  homer:
+    image: b4bz/homer
+    container_name: homer
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./assets/:/www/assets
+    environment:
+      - UID=1000
+      - GID=100
+

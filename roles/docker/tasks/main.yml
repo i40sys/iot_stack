@@ -1,4 +1,8 @@
 ---
+- name: Wait for apt to unlock
+  become: yes
+  shell:  while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 5; done;
+
 - name: Install docker dependencies
   apt:
     name: ['apt-transport-https','ca-certificates', 'curl', 'software-properties-common','python3-pip']

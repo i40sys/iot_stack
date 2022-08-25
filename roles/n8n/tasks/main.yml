@@ -1,4 +1,11 @@
 ---
+- name: Removing previous installation
+  file:
+    path: /docker-data/n8n
+    state: absent
+  tags:
+    - n8n
+
 - name: Creating directories to deploy
   file:
     path: /docker-data/n8n/data

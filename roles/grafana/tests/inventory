@@ -1,1 +1,11 @@
-10.2.0.54
+all:
+  children:
+    iot-gw-ec2:
+      hosts:
+        52.59.190.241:
+  vars:
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+    ansible_user: 'ubuntu'
+    #ansible_ssh_pass: ''
+    #ansible_port: 5555
+    #ansible_connection: 'ssh'

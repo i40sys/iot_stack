@@ -1,0 +1,12 @@
+---
+- name: Set timezone
+  timezone:
+    name: Europe/Madrid
+
+- name: Install basic packages
+  apt:
+    name: ['net-tools']
+    state: present
+    update_cache: yes
+  tags:
+    - system-config

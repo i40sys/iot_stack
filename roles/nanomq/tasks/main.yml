@@ -1,10 +1,33 @@
 ---
+- name: Remove previous deployment
+  file:
+    path: /docker-data/nanomq
+    state: absent
+  tags:
+    - nanomq
+
 - name: Creating directories to deploy
   file:
     path: /docker-data/nanomq/etc
     state: directory
     owner: 0
     group: 0
+  tags:
+    - nanomq
+
+- name: Copying docker-compose
+  copy:
+    src: docker-compose.yml
+    dest: /docker-data/nanomq/docker-compose.yml
+    mode: '0644'
+  tags:
+    - nanomq
+
+- name: Copying an empty config file
+  copy:
+    src: nanomq.conf
+    dest: /docker-data/nanomq/etc/nanomq.conf
+    mode: '0644'
   tags:
     - nanomq
 

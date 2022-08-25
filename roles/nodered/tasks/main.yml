@@ -1,4 +1,11 @@
 ---
+- name: Remove previous deployment
+  file:
+    path: /docker-data/nodered
+    state: absent
+  tags:
+    - nodered
+
 - name: Creating directories to deploy
   file:
     path: /docker-data/nodered/data

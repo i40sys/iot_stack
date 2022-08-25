@@ -5,10 +5,11 @@ services:
     container_name: n8n
     restart: unless-stopped
     environment:
-      - N8N_TUNNEL_SUBDOMAIN=eso
+      #- N8N_TUNNEL_SUBDOMAIN=eso
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=admin
-      - N8N_BASIC_AUTH_PASSWORD=80aQph334dGRHxzav
+      #- N8N_BASIC_AUTH_PASSWORD=80aQph334dGRHxzav
+      - N8N_BASIC_AUTH_PASSWORD=The2password.
       - GENERIC_TIMEZONE=Europe/Madrid
       #- WEBHOOK_TUNNEL_URL=https://n8n.joor.net/
     volumes:
