@@ -2,7 +2,7 @@ all:
   children:
     iot-gw-ec2:
       hosts:
-        18.185.125.46:
+        oriolrius.ddns.net:
   vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
     ansible_user: 'ubuntu'

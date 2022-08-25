@@ -1,0 +1,32 @@
+---
+- name: Creating directories to deploy
+  file:
+    path: /docker-data/duc
+    state: absent
+  tags:
+    - duc
+
+- name: Creating directories to deploy
+  file:
+    path: /docker-data/duc
+    state: directory
+    owner: 0
+    group: 0
+  tags:
+    - duc
+
+- name: Copying docker-compose
+  copy:
+    src: docker-compose.yml
+    dest: /docker-data/duc/docker-compose.yml
+    mode: '0644'
+  tags:
+    - duc
+
+- name: Run docker-compose up
+  docker_compose:
+    project_src: /docker-data/duc
+    build: no
+    pull: yes
+  tags:
+    - duc
