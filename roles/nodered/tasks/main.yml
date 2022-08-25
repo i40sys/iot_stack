@@ -132,6 +132,15 @@
   tags:
     - nodered
 
+- name: Customize node-red
+  lineinfile:
+    path: /docker-data/nodered/data/settings.js
+    insertafter: '.*httpAdminRoot:.*$'
+    line: "httpRoot: '/flows',"
+    state: present
+  tags:
+    - nodered
+
 - name: Run docker-compose up
   docker_compose:
     project_src: /docker-data/nodered

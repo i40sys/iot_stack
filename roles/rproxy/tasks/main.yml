@@ -1,4 +1,11 @@
 ---
+- name: Removing previous installation
+  file:
+    path: /docker-data/rproxy
+    state: absent
+  tags:
+    - rproxy
+
 - name: Creating directories to deploy
   file:
     path: /docker-data/rproxy/etc
@@ -8,19 +15,28 @@
   tags:
     - rproxy
 
+- name: Creating directories for setting configuration
+  file:
+    path: /docker-data/rproxy/data
+    state: directory
+    owner: 0
+    group: 0
+  tags:
+    - rproxy
+
+- name: Copying configuration
+  copy:
+    src: database.sqlite
+    dest: /docker-data/rproxy/data/database.sqlite
+    mode: '0644'
+  tags:
+    - rproxy
+
 - name: Copying docker-compose
   copy:
     src: docker-compose.yml
     dest: /docker-data/rproxy/docker-compose.yml
     mode: '0644'
-  tags:
-    - rproxy
-
-- name: Run docker-compose up
-  docker_compose:
-    project_src: /docker-data/rproxy
-    build: no
-    pull: yes
   tags:
     - rproxy
 

@@ -1,5 +1,5 @@
 ---
-- name: Creating directories to deploy
+- name: Remove previous installation
   file:
     path: /docker-data/homer
     state: absent
@@ -31,6 +31,10 @@
   tags:
     - homer
 
+- name: Template of the main page
+  template:
+    src: config.yml
+    dest: /docker-data/homer/assets/config.yml
 
 - name: Run docker-compose up
   docker_compose:

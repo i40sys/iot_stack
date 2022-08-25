@@ -6,7 +6,9 @@ A brief description of the role goes here.
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- Create an account at noip.com.
+- Create a hostname.
+- Configure 'Account > Account Info > Basic Info': email, password and username.
 
 Role Variables
 --------------

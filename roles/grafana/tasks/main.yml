@@ -1,4 +1,11 @@
 ---
+- name: Removing previous installation
+  file:
+    path: /docker-data/grafana
+    state: absent
+  tags:
+    - grafana
+
 - name: adding Grafana group
   group:
     name: grafana
@@ -64,6 +71,9 @@
   tags:
     - grafana
 
+- name: Waiting for grafana.ini is created
+  shell: while [ ! -f /docker-data/grafana/etc/grafana.ini ]; do sleep 1; done
+
 - name: Changing permissions
   shell: |
     chown -R grafana.grafana *
@@ -81,6 +91,33 @@
     name: grafana
     image: grafana/grafana:latest
     state: absent
+  tags:
+    - grafana
+
+- name: Adding URI path
+  lineinfile:
+    path: /docker-data/grafana/etc/grafana.ini
+    insertafter: '.*;root_url.*$'
+    line: "root_url = %(protocol)s://%(domain)s:%(http_port)s/grafana/"
+    state: present
+  tags:
+    - grafana
+
+- name: Enabling serving from subpath
+  lineinfile:
+    path: /docker-data/grafana/etc/grafana.ini
+    insertafter: '.*;serve_from_sub_path = false$'
+    line: "serve_from_sub_path = true"
+    state: present
+  tags:
+    - grafana
+
+- name: Changing default port to 3001
+  lineinfile:
+    path: /docker-data/grafana/etc/grafana.ini
+    insertafter: '.*;http_port = 3000$'
+    line: "http_port = 3001"
+    state: present
   tags:
     - grafana
 
