@@ -8,4 +8,4 @@ services:
       - USERNAME={{ username }}
       - PASSWORD={{ password }}
       - DOMAINS={{ domains }}
-      - INTERVAL={{ inverval }}
+      - INTERVAL={{ interval }}
