@@ -5,6 +5,8 @@ services:
     image: eclipse-mosquitto
     restart: unless-stopped
     user: mosquitto
+    environment:
+      TZ: "{{ timezone }}"
     volumes:
       - './etc/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro'
       - './etc/mqtt_users:/mosquitto/config/mqtt_users:ro'

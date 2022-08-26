@@ -74,7 +74,7 @@
     - mqtt
 
 - name: Copying docker-compose
-  copy:
+  template:
     src: docker-compose.yml
     dest: /docker-data/mqtt/docker-compose.yml
     mode: '0644'
