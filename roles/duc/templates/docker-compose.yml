@@ -1,0 +1,11 @@
+version: "2"
+services:
+  duc:
+    image: aanousakis/no-ip
+    container_name: duc
+    restart: unless-stopped
+    environment: 
+      - USERNAME={{ username }}
+      - PASSWORD={{ password }}
+      - DOMAINS={{ domains }}
+      - INTERVAL={{ inverval }}

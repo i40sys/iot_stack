@@ -1,2 +1,6 @@
 ---
-# defaults file for docker
+username: ymbihq
+password: "%d8596wTJ3g4%lY1%3"
+domains: oriolrius.ddns.net
+interval: 5
+
