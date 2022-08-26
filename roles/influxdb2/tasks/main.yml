@@ -16,7 +16,7 @@
 
 - name: Removing old directories
   file:
-    path: /data/influx2
+    path: "{{ data_path }}"
     state: absent
   tags:
     - influx2
@@ -32,7 +32,7 @@
 
 - name: Creating directories for data
   file:
-    path: /data/influx2
+    path: "{{ data_path }}"
     state: directory
     owner: 1000
     group: 1000
@@ -43,11 +43,11 @@
   docker_container:
     name: influx2_setup
     image: influxdb:latest
-    detach: false
+    detach: true
     recreate: false
     auto_remove: true
     volumes: 
-      - /data/influx2:/var/lib/influxdb2
+      - "{{ data_path }}:/var/lib/influxdb2"
       - ./config:/etc/influxdb2
     env:
       DOCKER_INFLUXDB_INIT_MODE: setup
@@ -57,6 +57,19 @@
       DOCKER_INFLUXDB_INIT_BUCKET: "{{ docker_influxdb_init_bucket }}"
       DOCKER_INFLUXDB_RETENTION: "{{ docker_influxdb_retention }}"
       DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: "{{ docker_influxdb_init_admin_token }}"
+  tags:
+    - influx2
+
+- name: Configuration is done
+  shell: while [ ! -f {{ data_path }}/influxd.bolt ]; do sleep 1; done
+  tags:
+    - influx2
+
+- name: Stopping setup container
+  docker_container:
+    name: influx2_setup
+    image: influxdb:latest
+    state: absent
   tags:
     - influx2
 
