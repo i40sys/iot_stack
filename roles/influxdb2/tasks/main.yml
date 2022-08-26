@@ -50,13 +50,13 @@
       - /data/influx2:/var/lib/influxdb2
       - ./config:/etc/influxdb2
     env:
-      - DOCKER_INFLUXDB_INIT_MODE=setup
-      - DOCKER_INFLUXDB_INIT_USERNAME={{ docker_influxdb_init_username }}
-      - DOCKER_INFLUXDB_INIT_PASSWORD={{ docker_influxdb_init_password }}
-      - DOCKER_INFLUXDB_INIT_ORG={{ docker_influxdb_init_org }}
-      - DOCKER_INFLUXDB_INIT_BUCKET={{ docker_influxdb_init_bucket }}
-      - DOCKER_INFLUXDB_RETENTION={{ docker_influxdb_retention }}
-      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN={{ docker_influxdb_init_admin_token }}
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: "{{ docker_influxdb_init_username }}"
+      DOCKER_INFLUXDB_INIT_PASSWORD: "{{ docker_influxdb_init_password }}"
+      DOCKER_INFLUXDB_INIT_ORG: "{{ docker_influxdb_init_org }}"
+      DOCKER_INFLUXDB_INIT_BUCKET: "{{ docker_influxdb_init_bucket }}"
+      DOCKER_INFLUXDB_RETENTION: "{{ docker_influxdb_retention }}"
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: {{ docker_influxdb_init_admin_token }}
   tags:
     - influx2
 
