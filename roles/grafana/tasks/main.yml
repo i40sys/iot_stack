@@ -77,6 +77,8 @@
 
 - name: Waiting for grafana.ini is created
   shell: while [ ! -f /docker-data/grafana/etc/grafana.ini ]; do sleep 1; done
+  tags:
+    - grafana
 
 - name: Changing permissions
   shell: |
