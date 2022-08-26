@@ -1,2 +1,4 @@
 ---
-# defaults file for nodered
+timezone: "Europe/Madrid"
+db_sqlite_file: "/data/database.sqlite"
+disable_ipv6: 'true'

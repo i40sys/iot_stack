@@ -41,7 +41,7 @@
     - rproxy
 
 - name: Copying docker-compose
-  copy:
+  template:
     src: docker-compose.yml
     dest: /docker-data/rproxy/docker-compose.yml
     mode: '0644'

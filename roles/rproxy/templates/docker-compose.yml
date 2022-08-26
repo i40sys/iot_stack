@@ -6,9 +6,9 @@ services:
     restart: unless-stopped
     network_mode: host
     environment:
-      DB_SQLITE_FILE: "/data/database.sqlite"
-      DISABLE_IPV6: 'true'
-      TZ: "Europe/Madrid"
+      DB_SQLITE_FILE: "{{ db_sqlite_file }}"
+      DISABLE_IPV6: "{{ disable_ipv6|string|lower }}"
+      TZ: "{{ timezone }}"
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
