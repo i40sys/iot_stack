@@ -80,7 +80,7 @@
     - influx2
 
 - name: Creating config file
-  docker_container_exec:
+  community.docker.docker_container_exec:
     container: influx2_setup
     command: /bin/bash -c "influx server-config > /etc/influxdb2/influxdb.conf"
   register: result
