@@ -45,7 +45,6 @@
     image: influxdb:latest
     detach: true
     recreate: false
-    auto_remove: true
     volumes: 
       - "{{ data_path }}:/var/lib/influxdb2"
       - ./config:/etc/influxdb2
