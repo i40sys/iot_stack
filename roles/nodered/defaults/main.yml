@@ -1,2 +1,3 @@
 ---
-# defaults file for nodered
+user: admin
+password: the_password
