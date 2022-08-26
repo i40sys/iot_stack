@@ -4,6 +4,8 @@
     url: "{{ gotop_repository }}{{ gotop_filename }}"
     dest: /tmp
     mode: 0644
+  tags:
+    - gotop
 
 - name: "Extract gotop .tgz package at /usr/local/bin"
   unarchive:
@@ -11,8 +13,12 @@
     dest: /usr/local/bin
     mode: 0755
     remote_src: true
+  tags:
+    - gotop
 
 - name: "Delete gotop .tgz package at /tmp"
   file:
     path: "/tmp/{{ gotop_filename }}"
     state: absent
+  tags:
+    - gotop
