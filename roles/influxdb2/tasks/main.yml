@@ -73,10 +73,11 @@
     - influx2
 
 - name: Pinging the container
-  community.docker.docker_container_exec:
-    container: influx2_setup
-    command: /bin/bash -c "influx ping"
+  #community.docker.docker_container_exec:
+  #  container: influx2_setup
+  #  command: /bin/bash -c "influx ping"
   register: result
+  shell: docker exec influx2_setup influx ping
   tags:
     - influx2
 
