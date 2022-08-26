@@ -5,7 +5,7 @@ services:
     image: grafana/grafana
     restart: unless-stopped
     environment: 
-      - TZ="Europe/Madrid"
+      - TZ="{{ timezone }}"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./etc:/etc/grafana

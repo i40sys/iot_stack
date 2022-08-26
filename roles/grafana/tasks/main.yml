@@ -11,6 +11,8 @@
     name: grafana
     gid: 472
     state: present
+  tags:
+    - grafana
 
 - name: adding Grafana user
   user:
@@ -20,6 +22,8 @@
     shell: /usr/bin/false
     uid: 472
     state: present
+  tags:
+    - grafana
 
 - name: Creating directories to deploy
   file:
@@ -98,7 +102,7 @@
   lineinfile:
     path: /docker-data/grafana/etc/grafana.ini
     insertafter: '.*;root_url.*$'
-    line: "root_url = %(protocol)s://%(domain)s:%(http_port)s/grafana/"
+    line: "root_url = {{ root_url }}"
     state: present
   tags:
     - grafana
@@ -107,7 +111,7 @@
   lineinfile:
     path: /docker-data/grafana/etc/grafana.ini
     insertafter: '.*;serve_from_sub_path = false$'
-    line: "serve_from_sub_path = true"
+    line: "serve_from_sub_path = {{ serve_from_sub_path }}"
     state: present
   tags:
     - grafana
@@ -116,13 +120,13 @@
   lineinfile:
     path: /docker-data/grafana/etc/grafana.ini
     insertafter: '.*;http_port = 3000$'
-    line: "http_port = 3001"
+    line: "http_port = {{ http_port }}"
     state: present
   tags:
     - grafana
 
 - name: Copying docker-compose
-  copy:
+  template:
     src: docker-compose.yml
     dest: /docker-data/grafana/docker-compose.yml
     mode: '0644'
