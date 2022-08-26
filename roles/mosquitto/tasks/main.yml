@@ -53,16 +53,6 @@
   tags:
     - mqtt
 
-- name: Creating directories to deploy
-  file:
-    path: /docker-data/mqtt/log
-    state: directory
-    owner: mqtt
-    group: mqtt
-    mode: '0755'
-  tags:
-    - mqtt
-
 - name: Copying mosquitto.conf
   template:
     src: mosquitto.conf

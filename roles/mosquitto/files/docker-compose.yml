@@ -9,6 +9,5 @@ services:
       - './etc/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro'
       - './etc/mqtt_users:/mosquitto/config/mqtt_users:ro'
       - './data:/mosquitto/data'
-      - './log:/mosquitto/log'
     network_mode: host
 
