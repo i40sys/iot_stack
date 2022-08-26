@@ -43,8 +43,8 @@
   docker_container:
     name: influx2_setup
     image: influxdb:latest
-    detach: true
-    recreate: false
+    #detach: true
+    #recreate: false
     volumes: 
       - "{{ data_path }}:/var/lib/influxdb2"
       - ./config:/etc/influxdb2
