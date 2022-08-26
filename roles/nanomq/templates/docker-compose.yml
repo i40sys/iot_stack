@@ -5,6 +5,8 @@ services:
     image: emqx/nanomq
     container_name: nanomq
     network_mode: host
+    environment:
+      TZ: "{{ timezone }}"
     volumes:
       - './etc/nanomq.conf:/etc/nanomq.conf:ro'
     restart: unless-stopped
