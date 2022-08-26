@@ -64,7 +64,7 @@
     - mqtt
 
 - name: Copying mosquitto.conf
-  copy:
+  template:
     src: mosquitto.conf
     dest: /docker-data/mqtt/etc/mosquitto.conf
     owner: mqtt
