@@ -1,4 +1,4 @@
 ---
 port_mqtt: 1883
 port_websockets: 9001
-allow_anonymous: true
+allow_anonymous: "true"
