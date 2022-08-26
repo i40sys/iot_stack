@@ -24,7 +24,7 @@
     - nodered
 
 - name: Copying docker-compose
-  copy:
+  template:
     src: docker-compose.yml
     dest: /docker-data/nodered/docker-compose.yml
     mode: '0644'
@@ -120,7 +120,7 @@
     # captures the position of the file
     regexp: '(?P<prj>projects: {\n)(?P<comentaris>.*\n.*)(?P<flag>enabled: false,).*$'
     # re-insert the same staff, just changing the enable value
-    replace: '\g<prj>\g<comentaris>enabled: true,'
+    replace: '\g<prj>\g<comentaris>enabled: {{ projects }},'
     backup: yes
   tags:
     - nodered
@@ -144,7 +144,7 @@
   lineinfile:
     path: /docker-data/nodered/data/settings.js
     insertafter: '.*httpAdminRoot:.*$'
-    line: "httpRoot: '/flows',"
+    line: "httpRoot: '{{ http_root }}',"
     state: present
   tags:
     - nodered

@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     privileged: true
     environment:
-      - TZ=Europe/Madrid
+      TZ: "{{ timezone }}"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./data:/data
