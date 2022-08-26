@@ -1,5 +1,5 @@
 ---
-- name: Creating directories to deploy
+- name: Removing previous installation
   file:
     path: /docker-data/duc
     state: absent
