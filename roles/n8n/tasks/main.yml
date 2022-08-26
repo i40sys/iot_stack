@@ -22,7 +22,7 @@
     - n8n
 
 - name: Copying docker-compose
-  copy:
+  template:
     src: docker-compose.yml
     dest: /docker-data/n8n/docker-compose.yml
     mode: '0644'
