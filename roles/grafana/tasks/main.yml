@@ -6,6 +6,14 @@
   tags:
     - grafana
 
+- name: Stopping old container
+  docker_container:
+    name: grafana
+    image: grafana/grafana:latest
+    state: absent
+  tags:
+    - grafana
+
 - name: adding Grafana group
   group:
     name: grafana
