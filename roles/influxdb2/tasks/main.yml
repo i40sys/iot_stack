@@ -7,6 +7,14 @@
   tags:
     - influx2
 
+- name: Stopping old container
+  docker_container:
+    name: influx2_setup
+    image: influxdb:latest
+    state: absent
+  tags:
+    - influx2
+
 - name: Removing old directories
   file:
     path: /docker-data/influx2
