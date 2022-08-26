@@ -85,13 +85,18 @@
 #   tags:
 #     - influx2
 
-- name: Setup
+- name: Setup 1/2
   shell: |
     docker run -d \
       --name influx2_setup \
       -v /data/influx2:/var/lib/influxdb2 \
-      -v $(pwd)/config:/etc/influxdb2 \
-      influxdb && \
+      -v /docker-data/influx2/config:/etc/influxdb2 \
+      influxdb
+  tags:
+    - influx2
+
+- name: Setup 2/2
+  shell: |
     docker exec influx2_setup \
       influx setup \
         --username '{{ docker_influxdb_init_username }}' \
@@ -99,41 +104,44 @@
         --org '{{ docker_influxdb_init_org }}' \
         --bucket '{{ docker_influxdb_init_bucket }}' \
         --retention '{{ docker_influxdb_retention }}' \
-        --token  '{{ docker_influxdb_init_bucket }}' \
+        --token  '{{ docker_influxdb_init_admin_token }}' \
         -f
-  ignore_errors: true
-  tags:
-    - influx2
-
-
-- name: Configuration is done
-  shell: while [ ! -f {{ data_path }}/influxd.bolt ]; do sleep 1; done
-  tags:
-    - influx2
-
-- name: Pinging the container
-  #community.docker.docker_container_exec:
-  #  container: influx2_setup
-  #  command: /bin/bash -c "influx ping"
-  register: result
-  shell: docker exec influx2_setup influx ping
-  tags:
-    - influx2
-
-- name: Is ping OK?
-  assert:
-    that:
-      - "'OK' in result.stdout"
   tags:
     - influx2
 
 - name: Creating config file
-  community.docker.docker_container_exec:
-    container: influx2_setup
-    command: /bin/bash -c "influx server-config > /etc/influxdb2/influxdb.conf"
-  register: result
+  shell: docker exec influx2_setup influx server-config > /docker-data/influx2/config/influxdb.conf
   tags:
     - influx2
+
+# - name: Configuration is done
+#   shell: while [ ! -f {{ data_path }}/influxd.bolt ]; do sleep 1; done
+#   tags:
+#     - influx2
+
+# - name: Pinging the container
+#   #community.docker.docker_container_exec:
+#   #  container: influx2_setup
+#   #  command: /bin/bash -c "influx ping"
+#   register: result
+#   shell: docker exec influx2_setup influx ping
+#   tags:
+#     - influx2
+
+# - name: Is ping OK?
+#   assert:
+#     that:
+#       - "'OK' in result.stdout"
+#   tags:
+#     - influx2
+
+# - name: Creating config file
+#   community.docker.docker_container_exec:
+#     container: influx2_setup
+#     command: /bin/bash -c "influx server-config > /etc/influxdb2/influxdb.conf"
+#   register: result
+#   tags:
+#     - influx2
 
 - name: Stopping setup container
   docker_container:
