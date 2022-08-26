@@ -3,4 +3,4 @@
   become: true
   remote_user: root
   roles:
-    - ../system-config
+    - ../system_config
