@@ -6,6 +6,14 @@
   tags:
     - n8n
 
+- name: Stopping old container
+  docker_container:
+    name: n8n
+    image: n8nio/n8n
+    state: absent
+  tags:
+    - n8n
+
 - name: Creating directories to deploy
   file:
     path: /docker-data/n8n/data

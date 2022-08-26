@@ -6,6 +6,14 @@
   tags:
     - nodered
 
+- name: Stopping old container
+  docker_container:
+    name: nodered
+    image: nodered/node-red:latest
+    state: absent
+  tags:
+    - nodered
+
 - name: Creating directories to deploy
   file:
     path: /docker-data/nodered/data
@@ -123,7 +131,7 @@
   tags:
     - nodered
 
-- name: Customize node-red
+- name: Customize nodered
   lineinfile:
     path: /docker-data/nodered/data/settings.js
     insertbefore: '.*projects: {.*$'
@@ -132,7 +140,7 @@
   tags:
     - nodered
 
-- name: Customize node-red
+- name: Customize nodered
   lineinfile:
     path: /docker-data/nodered/data/settings.js
     insertafter: '.*httpAdminRoot:.*$'

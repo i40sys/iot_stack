@@ -6,6 +6,14 @@
   tags:
     - rproxy
 
+- name: Stopping old container
+  docker_container:
+    name: rproxy
+    image: 'jc21/nginx-proxy-manager:latest'
+    state: absent
+  tags:
+    - rproxy
+
 - name: Creating directories to deploy
   file:
     path: /docker-data/rproxy/etc

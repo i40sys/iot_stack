@@ -6,6 +6,14 @@
   tags:
     - nanomq
 
+- name: Stopping old container
+  docker_container:
+    name: nanomq
+    image: emqx/nanomq
+    state: absent
+  tags:
+    - nanomq
+
 - name: Creating directories to deploy
   file:
     path: /docker-data/nanomq/etc

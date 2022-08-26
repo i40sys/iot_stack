@@ -1,4 +1,19 @@
 ---
+- name: Removing old directories
+  file:
+    path: /docker-data/influx2
+    state: absent
+  tags:
+    - influx2
+
+- name: Stopping old container
+  docker_container:
+    name: influx2
+    image: influxdb:latest
+    state: absent
+  tags:
+    - influx2
+
 - name: Creating directories to deploy
   file:
     path: /docker-data/influx2/config

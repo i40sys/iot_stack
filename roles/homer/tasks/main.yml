@@ -6,6 +6,14 @@
   tags:
     - homer
 
+- name: Stopping old container
+  docker_container:
+    name: homer
+    image: b4bz/homer
+    state: absent
+  tags:
+    - homer
+
 - name: Creating directories to deploy
   file:
     path: /docker-data/homer/etc

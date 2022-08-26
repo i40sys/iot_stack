@@ -1,4 +1,19 @@
 ---
+- name: Removing old directories
+  file:
+    path: /docker-data/mqtt
+    state: absent
+  tags:
+    - mqtt
+
+- name: Stopping old container
+  docker_container:
+    name: mqtt
+    image: eclipse-mosquitto
+    state: absent
+  tags:
+    - mqtt
+
 - name: adding Mosquitto group
   group:
     name: mqtt
