@@ -68,22 +68,43 @@
 #   tags:
 #     - influx2
 
+# - name: Setup
+#   shell: |
+#     docker run -d --name influx2_setup \
+#      -v /data/influx2:/var/lib/influxdb2 \
+#      -v $(pwd)/config:/etc/influxdb2 \
+#      -e DOCKER_INFLUXDB_INIT_MODE=setup \
+#      -e DOCKER_INFLUXDB_INIT_USERNAME="{{ docker_influxdb_init_username }}" \
+#      -e DOCKER_INFLUXDB_INIT_PASSWORD="{{ docker_influxdb_init_password }}" \
+#      -e DOCKER_INFLUXDB_INIT_ORG="{{ docker_influxdb_init_org }}" \
+#      -e DOCKER_INFLUXDB_INIT_BUCKET="{{ docker_influxdb_init_bucket }}" \
+#      -e DOCKER_INFLUXDB_RETENTION="{{ docker_influxdb_retention }}" \
+#      -e DOCKER_INFLUXDB_INIT_ADMIN_TOKEN="{{ docker_influxdb_init_admin_token }}" \
+#      influxdb
+#   ignore_errors: true
+#   tags:
+#     - influx2
+
 - name: Setup
   shell: |
-    docker run -d --name influx2_setup \
-     -v /data/influx2:/var/lib/influxdb2 \
-     -v $(pwd)/config:/etc/influxdb2 \
-     -e DOCKER_INFLUXDB_INIT_MODE=setup \
-     -e DOCKER_INFLUXDB_INIT_USERNAME="{{ docker_influxdb_init_username }}" \
-     -e DOCKER_INFLUXDB_INIT_PASSWORD="{{ docker_influxdb_init_password }}" \
-     -e DOCKER_INFLUXDB_INIT_ORG="{{ docker_influxdb_init_org }}" \
-     -e DOCKER_INFLUXDB_INIT_BUCKET="{{ docker_influxdb_init_bucket }}" \
-     -e DOCKER_INFLUXDB_RETENTION="{{ docker_influxdb_retention }}" \
-     -e DOCKER_INFLUXDB_INIT_ADMIN_TOKEN="{{ docker_influxdb_init_admin_token }}" \
-     influxdb
+    docker run -d \
+      --name influx2_setup \
+      -v /data/influx2:/var/lib/influxdb2 \
+      -v $(pwd)/config:/etc/influxdb2 \
+      influxdb && \
+    docker exec influx2_setup \
+      influx setup \
+        --username '{{ docker_influxdb_init_username }}' \
+        --password '{{ docker_influxdb_init_password }}' \
+        --org '{{ docker_influxdb_init_org }}' \
+        --bucket '{{ docker_influxdb_init_bucket }}' \
+        --retention '{{ docker_influxdb_retention }}' \
+        --token  '{{ docker_influxdb_init_bucket }}' \
+        -f
   ignore_errors: true
   tags:
     - influx2
+
 
 - name: Configuration is done
   shell: while [ ! -f {{ data_path }}/influxd.bolt ]; do sleep 1; done
