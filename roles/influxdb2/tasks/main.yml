@@ -70,7 +70,7 @@
 
 - name: Setup
   shell: |
-    docker run -d --rm --name influx2_setup \
+    docker run -d --name influx2_setup \
      -v /data/influx2:/var/lib/influxdb2 \
      -v $(pwd)/config:/etc/influxdb2 \
      -e DOCKER_INFLUXDB_INIT_MODE=setup \
