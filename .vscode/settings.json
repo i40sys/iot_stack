@@ -1,0 +1,5 @@
+{
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible.json#/$defs/playbook": "file:///home/oriol/ansible-collections/oriolrius/iot_stack/roles/duc/tests/test.yml"
+  }
+}

@@ -9,6 +9,7 @@ services:
       - N8N_BASIC_AUTH_USER={{ n8n_basic_auth_user }}
       - N8N_BASIC_AUTH_PASSWORD={{ n8n_basic_auth_password }}
       - GENERIC_TIMEZONE={{ timezone }}
+      - WEBHOOK_URL={{ n8n_webhook }}
     volumes:
       - ./data:/home/node/.n8n
     network_mode: host
