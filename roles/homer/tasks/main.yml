@@ -36,7 +36,8 @@
   copy:
     src: assets
     dest: /docker-data/homer
-    #directory_mode: true
+    directory_mode: '0775'
+    mode: '0664'
   tags:
     - homer
 
