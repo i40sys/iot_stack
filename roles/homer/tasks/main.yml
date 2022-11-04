@@ -38,6 +38,8 @@
     dest: /docker-data/homer
     directory_mode: '0775'
     mode: '0664'
+    owner: 1000
+    group: 100
   tags:
     - homer
 
