@@ -47,7 +47,9 @@
   template:
     src: config.yml
     dest: /docker-data/homer/assets/config.yml
-
+  tags:
+    - homer
+    
 - name: Run docker-compose up
   docker_compose:
     project_src: /docker-data/homer
