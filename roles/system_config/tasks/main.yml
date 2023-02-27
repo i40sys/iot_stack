@@ -2,6 +2,17 @@
 - name: Set timezone
   timezone:
     name: "{{ timezone }}"
+  tags:
+    - system-config
+
+- name: Update APT Cache
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+
+- name: Wait for sudo
+  become: true
+  shell:  while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 5; done;
 
 - name: Install basic packages
   apt:
