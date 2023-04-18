@@ -4,3 +4,12 @@
   remote_user: root
   roles:
     - ../system_config
+---
+- name: Configure system basic setup
+  hosts: all
+  gather_facts: true
+  become: true
+  roles:
+    - role: i40sys.iot_stack.system_config
+      vars:
+        # timezone: "Europe/Madrid"

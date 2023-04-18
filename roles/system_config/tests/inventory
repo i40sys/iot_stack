@@ -1,11 +1,11 @@
 all:
   children:
-    iot-gw-ec2:
+    iot-gw-hyperv:
       hosts:
-        oriolrius.ddns.net:
+        10.2.0.171:
   vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-    ansible_user: 'ubuntu'
+    ansible_user: 'oriol'
     #ansible_ssh_pass: ''
     #ansible_port: 5555
     #ansible_connection: 'ssh'

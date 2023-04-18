@@ -1,10 +1,4 @@
 ---
-- name: Set timezone
-  timezone:
-    name: "{{ timezone }}"
-  tags:
-    - system-config
-
 - name: Update APT Cache
   apt:
     update_cache: yes
@@ -20,8 +14,56 @@
 
 - name: Install basic packages
   apt:
-    name: ['net-tools']
+    name: ['net-tools', 'chrony']
     state: present
     update_cache: yes
+  tags:
+    - system-config
+
+- name: Set timezone
+  community.general.timezone:
+    name: "{{ timezone }}"
+  tags:
+    - system-config
+
+- name: Configure 'chrony'
+  ansible.builtin.template:
+    src: chrony.conf.j2
+    dest: /etc/chrony/chrony.conf
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - system-config
+
+- name: Enable NTP synchronization
+  ansible.builtin.systemd_timesyncd:
+    mode: enable
+  tags:
+    - system-config
+
+
+- name: Enable NTP client/server
+  ansible.builtin.systemd:
+    name: chrony.service
+    state: started
+    enabled: true
+  tags:
+    - system-config
+
+- name: Set unattended-upgrades configuration
+  debconf:
+    name: unattended-upgrades
+    question: unattended-upgrades/enable_auto_updates
+    value: true
+    vtype: boolean
+  tags:
+    - system-config
+
+- name: Set default editor
+  ansible.builtin.alternatives:
+    name: editor
+    path: /usr/bin/vim.basic
+    link: /usr/bin/editor
   tags:
     - system-config

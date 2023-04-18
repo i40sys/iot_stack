@@ -1,3 +1,12 @@
 ---
 timezone: Europe/Madrid
-
+ntp_server: true
+ntp_servers:
+  - 0.es.pool.ntp.org
+  - 1.es.pool.ntp.org
+  - 2.es.pool.ntp.org
+  - 3.es.pool.ntp.org
+ntp_server_white_list:
+  - 10.0.0.0/8
+  - 192.168.0.0/16
+  - 172.16.0.0/12

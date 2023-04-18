@@ -1,53 +1,22 @@
-Role Name
-=========
+# i40sys.iot_stack.system_config
 
-A brief description of the role goes here.
+This role configures the system. The collection is designed for running on Ubuntu, so the role setup Ubuntu basics.
 
-Requirements
-------------
+## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Just a Ubuntu system. It was tested with Ubuntu 18.04, 20.04 and 22.04.
 
-Role Variables
---------------
+## Role Variables
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Available variables are listed below, along with default values (see `defaults/main.yml`):
 
-Dependencies
-------------
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `timezone` | `Europe/Madrid` | Time zone of the IoT GW |
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+## Testing Playbook
 
-Testing Playbook
-----------------
-
+```bash
+cd tests
+ansible-playbook -i inventory.yml test.yml
 ```
-# 1. checking syntax
-ansible-playbook -i tests/inventory tests/test.yml --syntax-check
-
-# 2. deploying
-ansible-playbook -i tests/inventory tests/test.yml
-
-# 3. idempotency
-ansible-playbook -i tests/inventory tests/test.yml | tee /tmp/output.txt; grep -q 'changed=0.*failed=0' /tmp/output.txt && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
-```
-
-
-Example Playbook
-----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
-
-License
--------
-
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
