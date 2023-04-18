@@ -38,11 +38,11 @@
 
 - name: Enable NTP synchronization
   ansible.builtin.systemd:
-    name: systemd_timesyncd.service
-    mode: enable
+    name: systemd-timesyncd
+    state: started
+    enabled: true
   tags:
     - system-config
-
 
 - name: Enable NTP client/server
   ansible.builtin.systemd:
