@@ -37,7 +37,8 @@
     - system-config
 
 - name: Enable NTP synchronization
-  ansible.builtin.systemd_timesyncd:
+  ansible.builtin.systemd:
+    name: systemd_timesyncd.service
     mode: enable
   tags:
     - system-config

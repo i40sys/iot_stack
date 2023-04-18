@@ -1,10 +1,4 @@
 ---
-- hosts: all
-  become: true
-  remote_user: root
-  roles:
-    - ../system_config
----
 - name: Configure system basic setup
   hosts: all
   gather_facts: true
