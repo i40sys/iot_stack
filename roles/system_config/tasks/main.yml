@@ -79,7 +79,7 @@
 - name: 'SSMTP configuration: /etc/ssmtp/ssmtp.conf'
   ansible.builtin.template:
     src: ssmtp.conf.j2
-    dest: /etc/ssmtp/ssmtp.conf'
+    dest: /etc/ssmtp/ssmtp.conf
     owner: root
     group: root
     mode: 0644
