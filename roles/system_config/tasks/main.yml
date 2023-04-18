@@ -14,7 +14,7 @@
 
 - name: Install basic packages
   apt:
-    name: ['net-tools', 'chrony']
+    name: ['net-tools', 'chrony', 'ssmtp', 'bsd-mailx']
     state: present
     update_cache: yes
   tags:
@@ -63,5 +63,25 @@
     name: editor
     path: /usr/bin/vim.basic
     link: /usr/bin/editor
+  tags:
+    - system-config
+
+- name: 'SSMTP configuration: /etc/ssmtp/revaliases'
+  ansible.builtin.template:
+    src: revaliases.j2
+    dest: /etc/ssmtp/revaliases
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - system-config
+
+- name: 'SSMTP configuration: /etc/ssmtp/ssmtp.conf'
+  ansible.builtin.template:
+    src: ssmtp.conf.j2
+    dest: /etc/ssmtp/ssmtp.conf'
+    owner: root
+    group: root
+    mode: 0644
   tags:
     - system-config
