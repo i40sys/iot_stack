@@ -8,6 +8,8 @@ Only tested on Ubuntu 18.04, 20.04 and 22.04.
 
 ## Example Playbook
 
+At least three files are neeeded to run the playbook:
+
 ### collections/requirements.yml
 ```yaml
 ---
