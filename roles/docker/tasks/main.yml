@@ -20,16 +20,9 @@
   tags:
     - docker
 
-- name: Verify gpg key with the fingerprint
-  apt_key:
-    id: 0EBFCD88
-    state: present
-  tags:
-    - docker
-
 - name: Configure Docker for ubuntu stable repository
   apt_repository:
-    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release  }} stable
     state: present
     update_cache: yes
   tags:
@@ -49,9 +42,20 @@
   tags:
     - docker
 
-- name: Install docker-compose from official github repo
+- name: Get the latest release URL for docker-compose
+  uri:
+    url: "https://api.github.com/repos/docker/compose/releases/latest"
+    return_content: yes
+    status_code: 200
+  register: release_url
+
+- name: Latest docker-compose version
+  debug:
+    msg: "{{ release_url.json.tag_name }}"
+
+- name: Download the docker-compose binary file
   get_url:
-    url : "{{ docker_compose_url }}"
+    url: "{{ release_url.json.assets | selectattr('name', 'match', 'docker-compose-linux-x86_64') | map(attribute='browser_download_url') | list | first }}"
     dest: /usr/local/bin/docker-compose
     mode: 'u+x,g+x'
   tags:
