@@ -1,14 +1,16 @@
 galaxy_info:
-  author: Oriol Rius
-  role_name: install_docker
-  description: 'Installing docker-ce on Ubuntu using ppa'
+  author: Rai and Oriol
+  description: Install docker-ce and docker-compose
+  company: Industry 4.0 Systems
   license: MIT
-  min_ansible_version: "2.9"
+
+  min_ansible_version: 2.1
+
   platforms:
-    - name: Ubuntu
-      versions:
-        - all
-  galaxy_tags:
-    - docker
-    - sysadmin
-    - ubuntu
+  - name: Ubuntu
+    versions:
+    - all
+
+  galaxy_tags: [iot,network,networking,industry 4.0,industrial iot, i40sys,systems]
+
+dependencies: []
