@@ -1,6 +1,12 @@
 ---
-- hosts: all
+- name: Install and configure DUC
+  hosts: all
+  gather_facts: true
   become: true
-  remote_user: root
   roles:
-    - ../duc
+    - role: ../duc
+      # vars:
+      #   interval: 1
+      #   username: the_username
+      #   password: the_password
+      #   domains: your_domain.ddns.net

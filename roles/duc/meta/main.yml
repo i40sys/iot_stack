@@ -1,3 +1,17 @@
 galaxy_info:
-  author: Oriol Rius <oriol@joor.net>
-  description: Dynamic Update Client - noip.com
+  author: Rai and Oriol
+  description: Install and setup DUC
+  company: Industry 4.0 Systems
+
+  license: MIT
+
+  min_ansible_version: 2.1
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+
+  galaxy_tags: [iot,network,networking,industry 4.0,industrial iot, i40sys,systems]
+
+dependencies: []

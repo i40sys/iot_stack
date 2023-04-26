@@ -1,55 +1,78 @@
-Role Name
-=========
+# i40sys.iot_stack.duc
 
-A brief description of the role goes here.
+Install and configure Dynamic Update Client (DUC) to update a DNS record with the current IP address.
 
-Requirements
-------------
+## Requirements
 
-- Create an account at noip.com.
-- Create a hostname.
-- Configure 'Account > Account Info > Basic Info': email, password and username.
+Only tested on Ubuntu 18.04, 20.04 and 22.04.
 
-Role Variables
---------------
+## Example Playbook
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+At least three files are neeeded to run the playbook:
 
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
-
-Testing Playbook
-----------------
-
-```
-# 1. checking syntax
-ansible-playbook -i tests/inventory tests/test.yml --syntax-check
-
-# 2. deploying
-ansible-playbook -i tests/inventory tests/test.yml
-
-# 3. idempotency
-ansible-playbook -i tests/inventory tests/test.yml | tee /tmp/output.txt; grep -q 'changed=0.*failed=0' /tmp/output.txt && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
+### collections/requirements.yml
+```yaml
+---
+collections:
+  - name: i40sys.iot_stack.duc
 ```
 
+Install the collection:
+```bash
+ansible-galaxy collection install -r collections/requirements.yml
+```
 
-Example Playbook
-----------------
+### playbook.yml
+```yaml
+---
+- name: Install and configure DUC
+  hosts: all
+  gather_facts: true
+  become: true
+  roles:
+    - ../duc:
+      vars:
+        interval: 1
+        # username: the_username
+        # password: the_password
+        # domains: your_domain.ddns.net
+```
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+### inventory.yml
+example:
+```yaml
+all:
+  children:
+    iot-gw-hyperv:
+      hosts:
+        10.2.0.171:
+  vars:
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+    ansible_user: 'oriol'
+    #ansible_ssh_pass: ''
+    #ansible_port: 5555
+    #ansible_connection: 'ssh'
+```
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+Run the playbook:
+```bash
+ansible-playbook -i inventory.yml playbook.yml
+```
 
-License
--------
+## Testing Playbook
 
-BSD
+```bash
+# assuming that we're in the root of the role:
+ansible-playbook -i tests/inventory.yml tests/test.yml
+```
 
-Author Information
-------------------
+## Role Variables
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Available variables are listed below, along with default values (see `defaults/main.yml`):
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `interval` | `5` | Check the public IP every 5' |
+| `username` | `the_username` | No-IP username |
+| `password` | `the_password` | No-IP password |
+| `domains` | `your_domain.ddns.net` | Dynamic DNS domain |

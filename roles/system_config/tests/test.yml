@@ -4,7 +4,7 @@
   gather_facts: true
   become: true
   roles:
-    - ../system_config
+    - role: ../system_config
       # vars:
       #   timezone: "Europe/Madrid"
       #   ntp_server: true
