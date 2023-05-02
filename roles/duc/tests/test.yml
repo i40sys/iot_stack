@@ -5,8 +5,8 @@
   become: true
   roles:
     - role: ../duc
-      # vars:
-      #   interval: 1
-      #   username: the_username
-      #   password: the_password
-      #   domains: your_domain.ddns.net
+      vars:
+        interval: 1
+        username: i40sys
+        password: GoTE6yqtRnc6ZxdsKVeC
+        domains: i40sys.ddns.net

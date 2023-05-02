@@ -1,2 +1,5 @@
 ---
 interval: 5
+username: the_username
+password: the_password
+domains: your_domain.ddns.net
