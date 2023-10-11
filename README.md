@@ -6,7 +6,6 @@ There are several roles available:
 - [system_config](roles/system_config/README.md): Configure the system.
 - [docker](roles/docker/README.md): Install Docker and Docker Compose.
 - [duc](roles/duc/README.md): Install DUC for mapping the dynamic public IP address to a DNS entry.
-- [gotop](roles/gotop/README.md): Install gotop for monitoring the system.
 - [nodered](roles/nodered/README.md): Install Node-RED for managing IoT data flows and creating automations.
 - [influxdb](roles/influxdb/README.md): Install InfluxDB for time series data.
 - [grafana](roles/grafana/README.md): Install Grafana for create and manage dashboards.

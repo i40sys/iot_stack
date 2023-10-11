@@ -3,4 +3,4 @@ timezone: 'Europe/Madrid'
 http_root: '/flows'
 projects: 'true'
 user: admin
-password: the_password
+password: The2password.

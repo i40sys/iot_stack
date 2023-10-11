@@ -1,11 +1,4 @@
 ---
-- name: Removing previous installation
-  file:
-    path: /docker-data/n8n
-    state: absent
-  tags:
-    - n8n
-
 - name: Stopping old container
   docker_container:
     name: n8n
@@ -14,10 +7,20 @@
   tags:
     - n8n
 
+- name: Removing previous installation
+  file:
+    path: /docker-data/n8n
+    state: absent
+  tags:
+    - n8n
+
 - name: Creating directories to deploy
   file:
     path: /docker-data/n8n/data
     state: directory
+    mode: '0755'
+    owner: 1000
+    group: 1000
   tags:
     - n8n
 
