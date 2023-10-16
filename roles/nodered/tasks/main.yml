@@ -1,15 +1,15 @@
 ---
-- name: Remove previous deployment
-  file:
-    path: /docker-data/nodered
-    state: absent
-  tags:
-    - nodered
-
 - name: Stopping old container
   docker_container:
     name: nodered
     image: nodered/node-red:latest
+    state: absent
+  tags:
+    - nodered
+
+- name: Remove previous deployment
+  file:
+    path: /docker-data/nodered
     state: absent
   tags:
     - nodered

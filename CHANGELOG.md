@@ -1,3 +1,6 @@
+2023-10-16 v0.9.4
+  - improved role 'docker'; also better documentation and tests for this role.
+
 2023-10-10 v0.9.3
   - improved role 'n8n'; also better documentation and tests for this role.
 
