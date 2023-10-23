@@ -1,3 +1,6 @@
+2023-10-16 v0.9.5
+  - improved role 'nodered'; also better documentation and tests for this role.
+
 2023-10-16 v0.9.4
   - improved role 'docker'; also better documentation and tests for this role.
 

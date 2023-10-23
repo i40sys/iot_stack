@@ -1,6 +1,6 @@
 ---
 timezone: 'Europe/Madrid'
-http_root: '/flows'
+http_root: '/'
 projects: 'true'
 user: admin
 password: The2password.
