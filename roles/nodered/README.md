@@ -73,7 +73,7 @@ Available variables are listed below, along with default values (see `defaults/m
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `timezone` | `Europe/Madrid` | Timezone |
-| `http_root` | `/flows` | HTTP root |
+| `http_root` | `/` | HTTP root |
 | `projects` | `true` | Enable projects |	
 | `user` | `admin` | User |
 | `password` | `The2password.` | Password |
