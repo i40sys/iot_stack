@@ -61,6 +61,10 @@
   tags:
     - influx2
 
+- name: Pause for 5 seconds
+  pause:
+    seconds: 5
+
 - name: Setup 2/2
   shell: |
     docker exec influx2_setup \

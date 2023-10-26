@@ -31,6 +31,7 @@ ansible-galaxy collection install -r collections/requirements.yml
   become: true
   roles:
     - role: i40sys.iot_stack.n8n
+      vars:
         timezone: Europe/Madrid
         n8n_basic_auth_active: true
         n8n_basic_auth_user: admin

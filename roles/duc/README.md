@@ -30,7 +30,7 @@ ansible-galaxy collection install -r collections/requirements.yml
   gather_facts: true
   become: true
   roles:
-    - ../duc:
+    - role: i40sys.iot_stack.duc
       vars:
         interval: 1
         # username: the_username

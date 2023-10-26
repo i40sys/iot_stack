@@ -31,6 +31,7 @@ ansible-galaxy collection install -r collections/requirements.yml
   become: true
   roles:
     - role: i40sys.iot_stack.nodered
+      vars:
         timezone: Europe/Madrid
         nodered_basic_auth_active: true
         nodered_basic_auth_user: admin
