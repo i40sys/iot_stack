@@ -1,3 +1,6 @@
+2023-10-30 v0.9.8
+  - fixed grafana default config and ensure docker is running as a service
+  
 2023-10-16 v0.9.7
   - improved role 'grafana'; also better documentation and tests for this role.
 

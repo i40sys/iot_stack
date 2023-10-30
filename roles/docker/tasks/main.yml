@@ -42,6 +42,14 @@
   tags:
     - docker
 
+- name: Check docker-ce is running
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  tags:
+    - docker
+
 - name: Get the latest release URL for docker-compose
   uri:
     url: "https://api.github.com/repos/docker/compose/releases/latest"
