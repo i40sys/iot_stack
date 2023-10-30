@@ -3,4 +3,9 @@
   become: true
   remote_user: root
   roles:
-    - ../grafana
+    - role: ../grafana
+      vars:
+        root_url: "%(protocol)s://%(domain)s:%(http_port)s/grafana/"
+        serve_from_sub_path: "true"
+        http_port: "3001"
+        timezone: "Europe/Madrid"

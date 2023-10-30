@@ -1,3 +1,6 @@
+2023-10-16 v0.9.7
+  - improved role 'grafana'; also better documentation and tests for this role.
+
 2023-10-16 v0.9.6
   - improved role 'influxdb'; also better documentation and tests for this role.
 
