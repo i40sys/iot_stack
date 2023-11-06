@@ -3,4 +3,4 @@
   remote_user: root
   become: true
   roles:
-    - ../nanomq
+    - role: ../nanomq

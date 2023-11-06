@@ -1,3 +1,6 @@
+2023-10-30 v0.9.9
+  - small fixes
+  
 2023-10-30 v0.9.8
   - fixed grafana default config and ensure docker is running as a service
   

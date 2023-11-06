@@ -3,4 +3,4 @@
   become: true
   remote_user: root
   roles:
-    - ../rproxy
+    - role: ../rproxy

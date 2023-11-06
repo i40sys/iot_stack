@@ -126,7 +126,7 @@
   tags:
     - grafana
 
-- name: Changing default port to 3001
+- name: Changing default port
   lineinfile:
     path: /docker-data/grafana/etc/grafana.ini
     insertafter: '.*;http_port = 3000$'

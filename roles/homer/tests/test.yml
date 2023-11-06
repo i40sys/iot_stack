@@ -3,4 +3,6 @@
   become: true
   remote_user: root
   roles:
-    - ../homer
+    - role: ../homer
+      vars:
+        hostname_fqdn: subdomain.domain.tld

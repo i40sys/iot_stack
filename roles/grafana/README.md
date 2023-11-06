@@ -32,9 +32,9 @@ ansible-galaxy collection install -r collections/requirements.yml
   roles:
     - role: i40sys.iot_stack.grafana
       vars:
-        root_url: "%(protocol)s://%(domain)s:%(http_port)s/grafana/"
-        serve_from_sub_path: "true"
-        http_port: "3001"
+        root_url: "%(protocol)s://%(domain)s:%(http_port)s/"
+        serve_from_sub_path: "false"
+        http_port: "3000"
         timezone: "Europe/Madrid"
 
 ```
@@ -74,6 +74,6 @@ Available variables are listed below, along with default values (see `defaults/m
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `timezone` | `Europe/Madrid` | Timezone |
-| root_url | "%(protocol)s://%(domain)s:%(http_port)s/grafana/" | Grafana root URL |
-| serve_from_sub_path | true | Grafana serve from sub path |
-| http_port | 3001 | Grafana HTTP port |
+| root_url | "%(protocol)s://%(domain)s:%(http_port)s/" | Grafana root URL |
+| serve_from_sub_path | false | Grafana serve from sub path |
+| http_port | 3000 | Grafana HTTP port |

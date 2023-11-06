@@ -3,4 +3,10 @@
   gather_facts: true
   become: true
   roles:
-    - ../n8n
+    - role: ../n8n
+      vars:
+        timezone: 'Europe/Madrid'
+        http_root: '/'
+        projects: 'true'
+        user: admin
+        password: The2password.

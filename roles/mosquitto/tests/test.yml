@@ -3,4 +3,9 @@
   become: true
   remote_user: root
   roles:
-    - ../mosquitto
+    - role: ../mosquitto
+      vars:
+        timezone: 'Europe/Madrid'
+        port_mqtt: 1883
+        port_websockets: 9001
+        allow_anonymous: 'true'
