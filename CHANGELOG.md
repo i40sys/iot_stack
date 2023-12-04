@@ -1,3 +1,6 @@
+2023-11-29 v0.9.10
+  - fixed 'homer' role.
+
 2023-10-30 v0.9.9
   - small fixes
   

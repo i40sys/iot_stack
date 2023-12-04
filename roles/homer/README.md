@@ -1,52 +1,80 @@
-Role Name
-=========
+# i40sys.iot_stack.homer
 
-A brief description of the role goes here.
+Install Homer using a docker container.
 
-Requirements
-------------
+## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Only tested on Ubuntu 18.04, 20.04 and 22.04.
 
-Role Variables
---------------
+## Example Playbook
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+At least three files are neeeded to run the playbook:
 
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
-
-Testing Playbook
-----------------
-
-```
-# 1. checking syntax
-ansible-playbook -i tests/inventory tests/test.yml --syntax-check
-
-# 2. deploying
-ansible-playbook -i tests/inventory tests/test.yml
-
-# 3. idempotency
-ansible-playbook -i tests/inventory tests/test.yml | tee /tmp/output.txt; grep -q 'changed=0.*failed=0' /tmp/output.txt && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
+### collections/requirements.yml
+```yaml
+---
+collections:
+  - name: i40sys.iot_stack.homer
 ```
 
-Example Playbook
-----------------
+Install the collection:
+```bash
+ansible-galaxy collection install -r collections/requirements.yml
+```
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+### playbook.yml
+```yaml
+---
+- hosts: all
+  become: true
+  remote_user: root
+  roles:
+    - role: ../homer
+      vars:
+        hostname_fqdn: domain.tld
+        grafana_fqdn: https://grafana.domain.tld
+        influxdb_fqdn: https://influxdb.domain.tld
+        nodered_fqdn: https://nodered.domain.tld
+        n8n_fqdn: https://n8n.domain.tld
+```
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+### inventory.yml
+example:
+```yaml
+all:
+  children:
+    iot-gw-hyperv:
+      hosts:
+        10.2.0.171:
+  vars:
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+    ansible_user: 'oriol'
+    #ansible_ssh_pass: ''
+    #ansible_port: 5555
+    #ansible_connection: 'ssh'
+```
 
-License
--------
+Run the playbook:
+```bash
+ansible-playbook -i inventory.yml playbook.yml
+```
 
-BSD
+## Testing Playbook
 
-Author Information
-------------------
+```bash
+# assuming that we're in the root of the role:
+ansible-playbook -i tests/inventory.yml tests/test.yml
+```
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+## Role Variables
+
+Available variables are listed below, along with default values (see `defaults/main.yml`):
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `timezone` | `Europe/Madrid` | Timezone |
+| `hostname_fqdn` | `domain.tld` | Hostname |
+| `grafana_fqdn` | `https://grafana.domain.tld` | Grafana FQDN |
+| `influxdb_fqdn` | `https://influxdb.domain.tld` | InfluxDB FQDN |
+| `nodered_fqdn` | `https://nodered.domain.tld` | Node-RED FQDN |
+| `n8n_fqdn` | `https://n8n.domain.tld` | n8n FQDN |

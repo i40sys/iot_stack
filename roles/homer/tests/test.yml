@@ -5,4 +5,8 @@
   roles:
     - role: ../homer
       vars:
-        hostname_fqdn: subdomain.domain.tld
+        hostname_fqdn: http://10.2.0.171
+        grafana_fqdn: http://10.2.0.171:3000
+        influxdb_fqdn: http://10.2.0.171:8086
+        nodered_fqdn: http://10.2.0.171:1880
+        n8n_fqdn: http://10.2.0.171:5678

@@ -1,13 +1,10 @@
-version: "2"
+version: "3.8"
 services:
   homer:
     image: b4bz/homer
     container_name: homer
     restart: unless-stopped
-    network_mode: host
+    ports:
+      - 80:8080
     volumes:
       - ./assets/:/www/assets
-    environment:
-      - UID=1000
-      - GID=100
-

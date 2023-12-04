@@ -1,2 +1,6 @@
 ---
-hostname_fqdn: subdomain.domain.tld
+hostname_fqdn: domain.tld
+grafana_fqdn: "https://grafana.{{ hostname_fqdn }}"
+nodered_fqdn: "https://nodered.{{ hostname_fqdn }}"
+influxdb_fqdn: "https://influxdb.{{ hostname_fqdn }}"
+n8n_fqdn: "https://n8n.{{ hostname_fqdn }}"
