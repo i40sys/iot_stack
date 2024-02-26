@@ -10,7 +10,6 @@ There are several roles available:
 - [influxdb](roles/influxdb/README.md): Install InfluxDB for time series data.
 - [grafana](roles/grafana/README.md): Install Grafana for create and manage dashboards.
 - [n8n](roles/n8n/README.md): Install n8n for creating workflows.
-- [rproxy](roles/rproxy/README.md): Install rproxy for reverse proxying services, everything managed by the same place and manage Let's Encrypt certificates.
 - [homer](roles/homer/README.md): Install Homer for managing the IoT Gateway, create an HTML website with the list of services available in the IoT Gateway.
 
 There are two MQTT brokers available:

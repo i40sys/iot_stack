@@ -3,4 +3,4 @@ timezone: Europe/Madrid
 n8n_basic_auth_active: true
 n8n_basic_auth_user: admin
 n8n_basic_auth_password: The2password.
-n8n_webhook: https://n8n.group00.joor.net/
+n8n_webhook: https://hookurl.tld/

@@ -6,7 +6,7 @@
     - role: ../n8n
       vars:
         timezone: 'Europe/Madrid'
-        http_root: '/'
-        projects: 'true'
-        user: admin
-        password: The2password.
+        n8n_webhook: 'https://hookurl.tld/'
+        n8n_basic_auth_active: 'true'
+        n8n_basic_auth_user: admin
+        n8n_basic_auth_password: The2password.

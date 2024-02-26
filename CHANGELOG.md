@@ -1,3 +1,10 @@
+2024-02-19 v0.9.12
+  - improved role 'nanomq'; also better documentation and tests for this role.
+  - small fixes in 'n8n' role.
+
+2024-02-19 v0.9.11
+  - removed rproxy as a module
+
 2023-11-29 v0.9.10
   - fixed 'homer' role.
 

@@ -1,5 +1,4 @@
-version: '3.3'
-# docker run -d -p 1883:1883 -p 8883:8883 --name nanomq emqx/nanomq:0.6.6
+version: '3.9'
 services:
   mqtt:
     image: emqx/nanomq
@@ -9,4 +8,7 @@ services:
       TZ: "{{ timezone }}"
     volumes:
       - './etc/nanomq.conf:/etc/nanomq.conf:ro'
+      - './etc/nanomq_acl.conf:/etc/nanomq_acl.conf:ro'
+      - './etc/nanomq_pwd.conf:/etc/nanomq_pwd.conf:ro'
+      - './data:/tmp'
     restart: unless-stopped

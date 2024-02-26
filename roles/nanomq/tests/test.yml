@@ -4,3 +4,6 @@
   become: true
   roles:
     - role: ../nanomq
+      vars:
+        user: admin
+        password: The2password.

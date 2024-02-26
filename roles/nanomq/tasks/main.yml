@@ -1,30 +1,30 @@
 ---
+- name: Stopping old container
+  ansible.builtin.docker_container:
+    name: nanomq
+    state: absent
+  tags:
+    - nanomq
+
 - name: Remove previous deployment
-  file:
+  ansible.builtin.file:
     path: /docker-data/nanomq
     state: absent
   tags:
     - nanomq
 
-- name: Stopping old container
-  docker_container:
-    name: nanomq
-    image: emqx/nanomq
-    state: absent
-  tags:
-    - nanomq
-
 - name: Creating directories to deploy
-  file:
+  ansible.builtin.file:
     path: /docker-data/nanomq/etc
     state: directory
     owner: 0
     group: 0
+    mode: '0755'
   tags:
     - nanomq
 
 - name: Copying docker-compose
-  template:
+  ansible.builtin.template:
     src: docker-compose.yml
     dest: /docker-data/nanomq/docker-compose.yml
     mode: '0644'
@@ -32,23 +32,31 @@
     - nanomq
 
 - name: Copying an empty config file
-  copy:
+  ansible.builtin.copy:
     src: nanomq.conf
     dest: /docker-data/nanomq/etc/nanomq.conf
     mode: '0644'
   tags:
     - nanomq
 
-- name: Run docker-compose up
-  docker_compose:
-    project_src: /docker-data/nanomq
-    build: no
-    pull: yes
+- name: Templating ACL conf file
+  ansible.builtin.template:
+    src: nanomq_acl.conf.j2
+    dest: /docker-data/nanomq/etc/nanomq_acl.conf
+    mode: '0644'
+  tags:
+    - nanomq
+
+- name: Templating password file
+  ansible.builtin.template:
+    src: nanomq_pwd.conf.j2
+    dest: /docker-data/nanomq/etc/nanomq_pwd.conf
+    mode: '0644'
   tags:
     - nanomq
 
 - name: Run docker-compose up
-  docker_compose:
+  community.docker.docker_compose:
     project_src: /docker-data/nanomq
     build: no
     pull: yes
