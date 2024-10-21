@@ -2,10 +2,10 @@ all:
   children:
     iot-gw-hyperv:
       hosts:
-        10.2.0.171:
+        k5.joor.net:
   vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-    ansible_user: 'oriol'
+    # ansible_user: 'oriol'
     #ansible_ssh_pass: ''
     #ansible_port: 5555
     #ansible_connection: 'ssh'

@@ -1,4 +1,6 @@
 ---
+grafana_admin_password: "The2password."
+grafana_secret_key: "The2password."
 root_url: "%(protocol)s://%(domain)s:%(http_port)s/"
 serve_from_sub_path: "false"
 http_port: "3000"
