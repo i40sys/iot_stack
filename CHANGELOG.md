@@ -1,3 +1,6 @@
+2024-10-23 v0.9.20
+  - grafana role: installation and configuration much better than before
+
 2024-02-19 v0.9.12
   - improved role 'nanomq'; also better documentation and tests for this role.
   - small fixes in 'n8n' role.
