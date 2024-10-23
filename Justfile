@@ -4,6 +4,7 @@ tag:
   git add .
   git commit -am "release version"
   git push -u gitea master
+  git tag {{ VERSION }}
 
 build:
   ansible-galaxy collection build .
