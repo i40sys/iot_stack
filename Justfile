@@ -5,6 +5,7 @@ tag:
   git commit -am "release version"
   git push -u gitea master
   git tag {{ VERSION }}
+  git push --follow-tags -u gitea master
 
 build:
   ansible-galaxy collection build .
