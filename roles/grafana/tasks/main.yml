@@ -14,7 +14,7 @@
   tags:
     - grafana
 
-- name: adding Grafana group
+- name: Adding Grafana group
   ansible.builtin.group:
     name: grafana
     gid: 472
@@ -22,7 +22,7 @@
   tags:
     - grafana
 
-- name: adding Grafana user
+- name: Adding Grafana user
   ansible.builtin.user:
     name: grafana
     group: grafana
@@ -127,12 +127,26 @@
   tags:
     - grafana
 
+- name: Get information about the grafana container
+  community.docker.docker_container_info:
+    name: grafana
+  register: grafana_container_info
+  tags:
+    - grafana
+
+- name: Extract the IP address of the grafana service
+  ansible.builtin.debug:
+    msg: "Grafana Container IP address: {{ grafana_container_info.container.NetworkSettings.Networks.services.IPAddress }}"
+  tags:
+    - grafana
+
 - name: Waiting for Grafana to start
   ansible.builtin.wait_for:
-    host: localhost
+    host: "{{ grafana_container_info.container.NetworkSettings.Networks.services.IPAddress }}"
     port: 3000
-    delay: 10
-    timeout: 300
+    delay: 1
+    sleep: 1
+    timeout: 30
   tags:
     - grafana
 

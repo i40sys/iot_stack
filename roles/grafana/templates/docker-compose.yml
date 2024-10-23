@@ -1,6 +1,6 @@
 services:
   grafana:
-    container_name:  grafana
+    container_name: grafana
     image: grafana/grafana
     restart: unless-stopped
     environment: 
@@ -9,5 +9,18 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ./etc:/etc/grafana
       - ./lib:/var/lib/grafana
+{% if network_mode is defined and network_mode == 'host' %}
     network_mode: host
+{% elif grafana_container_networks is defined %}
+    networks:
+      - {{ grafana_container_networks }}
+{% endif %}
 
+{% if network_mode is not defined or network_mode != 'host' %}
+{% if grafana_container_networks is defined %}
+networks:
+  {{ grafana_container_networks }}:
+    external: true
+    name: {{ grafana_container_networks }}
+{% endif %}
+{% endif %}
